@@ -2,11 +2,14 @@ import os
 import sys
 from PIL import Image
 import torch
+from torch import Tensor
 import numpy as np
 import torch.utils.data as data
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 
+data_list={'data_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta', 'train_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_train_list.txt', 'val_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_test_list.txt'}
+    # Data loading code
 def default_loader(path):
     return Image.open(path).convert('RGB')
 class MultiLabelDataset(data.Dataset):
@@ -33,7 +36,7 @@ class MultiLabelDataset(data.Dataset):
         if self.transform is not None:
             img = self.transform(img)
         return img, torch.Tensor(label)
-
+    
     def __len__(self):
         return len(self.images)
 
@@ -42,6 +45,7 @@ attr_nums = {}
 attr_nums['pa100k'] = 26
 attr_nums['rap'] = 51
 attr_nums['peta'] = 35
+attr_nums['foottraffic'] = 43
 
 description = {}
 description['pa100k'] = ['Female',
@@ -160,10 +164,54 @@ description['rap'] = ['Female',
                         'CarryingbyHand']
 
 
+description['foottraffic'] = ['male',
+                        'female',
+                        'child',
+                        'teenager',
+                        'adult',
+                        'senior',
+                        'long_sleeve',
+                        'short_sleeve',
+                        'sleeveless',
+                        'onepice',
+                        'top_red',
+                        'top_orange',
+                        'top_yellow',
+                        'top_green',
+                        'top_blue',
+                        'top_purple',
+                        'top_pink',
+                        'top_brown',
+                        'top_white',
+                        'top_grey',
+                        'top_black',
+                        'long_pants',
+                        'short_pants',
+                        'skirt',
+                        'bottom_type_none',
+                        'bottom_red',
+                        'bottom_orange',
+                        'bottom_yellow',
+                        'bottom_green',
+                        'bottom_blue',
+                        'bottom_purple',
+                        'bottom_pink',
+                        'bottom_brown',
+                        'bottom_white',
+                        'bottom_grey',
+                        'bottom_black',
+                        'carrier',
+                        'umbrella',
+                        'bag',
+                        'hat',
+                        'glasses',
+                        'acc_none',
+                        'pet']
+
 
 
 def Get_Dataset(experiment, approach):
-
+    #data_path='/home/dhc4003/cctv/ALM-pedestrian-attribute/sample_data'
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     transform_train = transforms.Compose([
         transforms.Resize(size=(256, 128)),
@@ -178,7 +226,6 @@ def Get_Dataset(experiment, approach):
         transforms.ToTensor(),
         normalize
         ])
-
     if experiment == 'pa100k':
         train_dataset = MultiLabelDataset(root='data_path',
                     label='train_list_path', transform=transform_train)
@@ -192,8 +239,11 @@ def Get_Dataset(experiment, approach):
                     label='val_list_path', transform=transform_test)
         return train_dataset, val_dataset, attr_nums['rap'], description['rap']
     elif experiment == 'peta':
-        train_dataset = MultiLabelDataset(root='data_path',
-                    label='train_list_path', transform=transform_train)
-        val_dataset = MultiLabelDataset(root='data_path',
-                    label='val_list_path', transform=transform_test)
+        train_dataset = MultiLabelDataset(root=data_list['data_path'],label=data_list['train_list_path'], transform=transform_train)
+        val_dataset = MultiLabelDataset(root=data_list['data_path'],label=data_list['val_list_path'], transform=transform_test)
         return train_dataset, val_dataset, attr_nums['peta'], description['peta']
+    elif experiment=='foottraffic':
+        train_dataset = MultiLabelDataset(root=data_list['data_path'],label=data_list['train_list_path'], transform=transform_train)
+        val_dataset = MultiLabelDataset(root=data_list['data_path'],label=data_list['val_list_path'], transform=transform_test)
+        return train_dataset, val_dataset, attr_nums['foottraffic'], description['foottraffic']
+Get_Dataset('foottraffic', data_list)

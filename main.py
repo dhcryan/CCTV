@@ -51,18 +51,16 @@ def main():
     for arg in vars(args):
         print('\t' + arg + ':', getattr(args, arg))
     print('=' * 100)
-
+    dataset_list={'data_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta', 'train_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_train_list.txt', 'val_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_test_list.txt'}
     # Data loading code
-    train_dataset, val_dataset, attr_num, description = Get_Dataset(args.experiment, args.approach)
-
+    train_dataset, val_dataset, attr_num, description = Get_Dataset(args.experiment, dataset_list)
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=True)
 
     val_loader = torch.utils.data.DataLoader(
         val_dataset,
-        batch_size=32, shuffle=False, num_workers=4, pin_memory=True)
-
+        batch_size=16, shuffle=False, num_workers=4, pin_memory=True)
     # create model
     model = models.__dict__[args.approach](pretrained=True, num_classes=attr_num)
 
@@ -322,7 +320,7 @@ def test(val_loader, model, attr_num, description):
 
 def save_checkpoint(state, epoch, prefix, filename='.pth.tar'):
     """Saves checkpoint to disk"""
-    directory = "your_path" + args.experiment + '/' + args.approach + '/'
+    directory = '/home/dhc4003/cctv/ALM-pedestrian-attribute' + args.experiment + '/' + args.approach + '/'
     if not os.path.exists(directory):
         os.makedirs(directory)
     if prefix == '':
@@ -360,8 +358,6 @@ def adjust_learning_rate(optimizer, epoch, decay_epoch):
     print()
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
-
-
 def accuracy(output, target):
     batch_size = target.size(0)
     attr_num = target.size(1)

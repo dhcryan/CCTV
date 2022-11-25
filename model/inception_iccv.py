@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.tensor as tensor
 from torch.nn import functional as F
 
 __all__ = ['inception_iccv']
