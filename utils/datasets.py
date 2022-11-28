@@ -8,7 +8,9 @@ import torch.utils.data as data
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 
-data_list={'data_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/', 'train_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_train_list.txt', 'val_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_test_list.txt'}
+# data_list={'data_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/', 'train_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_train_list.txt', 'val_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_test_list.txt'}
+#     # Data loading code
+data_list={'data_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/foottraffic/', 'train_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/foottraffic/FOOTTRAFFIC_train_list.txt', 'val_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/foottraffic/FOOTTRAFFIC_test_list.txt'}
     # Data loading code
 def default_loader(path):
     return Image.open(path).convert('RGB')
@@ -207,8 +209,6 @@ description['foottraffic'] = ['male',
                         'glasses',
                         'acc_none',
                         'pet']
-
-
 
 def Get_Dataset(experiment, approach):
     #data_path='/home/dhc4003/cctv/ALM-pedestrian-attribute/sample_data'
