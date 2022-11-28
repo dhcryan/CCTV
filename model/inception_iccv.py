@@ -11,7 +11,7 @@ def inception_iccv(pretrained=True, debug=False, **kwargs):
         Initializing with basedline models (trained BN-Inception) can obtain better results.
     """
     if pretrained:
-        pretrained_dict = torch.load('model/bn_inception-52deb4733.pth')
+        pretrained_dict = torch.load('/home/dhc4003/cctv/ALM-pedestrian-attribute/model/peta_epoch_31.pth.tar')
         model_dict = model.state_dict()
         new_dict = {}
         for k,_ in model_dict.items():

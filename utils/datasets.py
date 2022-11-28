@@ -8,7 +8,7 @@ import torch.utils.data as data
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 
-data_list={'data_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta', 'train_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_train_list.txt', 'val_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_test_list.txt'}
+data_list={'data_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/', 'train_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_train_list.txt', 'val_list_path': '/home/dhc4003/cctv/ALM-pedestrian-attribute/data_list/peta/PETA_test_list.txt'}
     # Data loading code
 def default_loader(path):
     return Image.open(path).convert('RGB')
@@ -246,4 +246,4 @@ def Get_Dataset(experiment, approach):
         train_dataset = MultiLabelDataset(root=data_list['data_path'],label=data_list['train_list_path'], transform=transform_train)
         val_dataset = MultiLabelDataset(root=data_list['data_path'],label=data_list['val_list_path'], transform=transform_test)
         return train_dataset, val_dataset, attr_nums['foottraffic'], description['foottraffic']
-Get_Dataset('foottraffic', data_list)
+# Get_Dataset('foottraffic', data_list)
