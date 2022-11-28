@@ -1,4 +1,5 @@
 # Improving Pedestrian Attribute Recognition With Weakly-Supervised Multi-Scale Attribute-Specific Localization
+## 22-2 IT 집중교육 TEAM PROJECT
 
 Code for the paper "Improving Pedestrian Attribute Recognition With Weakly-Supervised Multi-Scale Attribute-Specific Localization", ICCV 2019, Seoul.
 
